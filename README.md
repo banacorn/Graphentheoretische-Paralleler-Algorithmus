@@ -1,0 +1,2 @@
+# Graphentheoretische-Paralleler-Algorithmus
+Graphentheoretische Paralleler Algorithmus
