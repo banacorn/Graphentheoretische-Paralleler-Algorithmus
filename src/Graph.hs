@@ -1,7 +1,6 @@
 module Graph (
-        module Graph.Type
-    ,   module Graph.Clique
+        module Graph.Naive
+    -- ,   module Graph.Clique
 ) where
 
-import Graph.Type
-import Graph.Clique
+import Graph.Naive
