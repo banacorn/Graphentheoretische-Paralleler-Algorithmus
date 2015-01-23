@@ -1,4 +1,8 @@
 module Main where
 
+import Graph
+import Graph.Type
+import Bench
+
 main :: IO ()
-main = print 3
+main = runBench
