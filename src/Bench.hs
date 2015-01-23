@@ -4,11 +4,9 @@ import Criterion.Main
 
 import Graph
 
-
+runBench :: IO ()
 runBench = defaultMain
     [   bgroup "Bron-Kerbosch"      [   bench "a" $ whnf bronKerbosch a
-                                    ]
-    ,   bgroup "Bron-Kerbosch nub"  [   bench "a" $ whnf bronKerbosch' a
                                     ]
     ]
 
