@@ -1,4 +1,4 @@
-module Graph.Naive where
+module Graph.Sparse where
 
 import Data.List (union, intersect, (\\), sort, nub)
 
@@ -6,14 +6,19 @@ import Data.List (union, intersect, (\\), sort, nub)
 -- Data Type
 
 type Vertex = Int
-type AdjList = [Vertex]
-data Graph  = Graph [AdjList] deriving (Eq, Show)
-type Clique = [Vertex]
+type Vertices = [Vertex]
+
+data Graph  = Graph [Vertices] deriving (Eq, Show)
+
+type Clique = Vertices
 
 --------------------------------------------------------------------------------
 -- Utilities
 
-neighbor :: Graph -> Vertex -> AdjList
+vertices :: Graph -> Vertices
+vertices (Graph list) = [0 .. length list - 1]
+
+neighbor :: Graph -> Vertex -> Vertices
 neighbor (Graph list) v = list !! v
 
 --------------------------------------------------------------------------------
@@ -23,7 +28,7 @@ bronKerbosch :: Graph -> [Clique]
 bronKerbosch g = nub . map sort $ bronKerbosch2 g [] (vertices g) []
 
 -- with pivoting, without vertex degeneracy ordering
-bronKerbosch2 :: Graph -> [Vertex] -> [Vertex] -> [Vertex] -> [Clique]
+bronKerbosch2 :: Graph -> Vertices -> Vertices -> Vertices -> [Clique]
 bronKerbosch2 _ r [] [] = [r]               -- found a clique
 bronKerbosch2 _ _ [] _  = []                -- backtracks
 bronKerbosch2 g r p  x  = vs >>= next

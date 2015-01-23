@@ -1,6 +1,7 @@
 module Graph (
-        module Graph.Naive
-    -- ,   module Graph.Clique
+        -- module Graph.Dense
+    -- ,   module Graph.Sparse
 ) where
 
-import Graph.Naive
+-- import Graph.Dense
+-- import Graph.Sparse
