@@ -51,7 +51,7 @@ null :: Vertices -> Bool
 null = not . or
 
 
--- --------------------------------------------------------------------------------
+--------------------------------------------------------------------------------
 -- Bron-Kerbosch Algorithm
 -- finds all maximal cliques in an undirected graph
 bronKerbosch :: Graph -> [Clique]
@@ -70,13 +70,3 @@ bronKerbosch2 g r p x
                         (r `insert` v)
                         (p `intersect` neighbor g v)
                         (x `intersect` neighbor g v)
-
-q :: Graph
-q = Graph
-    [   [False, True,  False, False, True,  False]
-    ,   [True,  False, True,  False, True,  False]
-    ,   [False, True,  False, True,  False, False]
-    ,   [False, False, True,  False, True,  True]
-    ,   [True,  True,  False, True,  False, False]
-    ,   [False, False, False, True,  False, False]
-    ]
