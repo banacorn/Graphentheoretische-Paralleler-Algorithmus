@@ -32,9 +32,9 @@ bronKerbosch2 :: Graph -> Vertices -> Vertices -> Vertices -> [Clique]
 bronKerbosch2 _ r [] [] = [r]               -- found a clique
 bronKerbosch2 _ _ [] _  = []                -- backtracks
 bronKerbosch2 g r p  x  = vs >>= next
-    where   pivot = head (p `union` x)
-            vs = p \\ neighbor g pivot
-            next v = bronKerbosch2 g
+    where   pivot   = head (p `union` x)
+            vs      = p \\ neighbor g pivot
+            next v  = bronKerbosch2 g
                         (r `union` [v])
                         (p `intersect` neighbor g v)
                         (x `intersect` neighbor g v)

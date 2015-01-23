@@ -1,36 +1,43 @@
 module Bench where
 
+import Graph
+import qualified Graph.Dense as D
+import qualified Graph.Sparse as S
+
+
 import Criterion.Main
 import qualified Data.Array.Repa as R
+import System.Random
+
 
 runBench :: IO ()
-runBench = defaultMain
-    [   --bgroup "Bron-Kerbosch"      [   bench "a" $ whnf bronKerbosch a
-        --                            ]
-    --     bgroup "Dot Product"
-    --         [   bench "1M"      $ whnf (dopt [1 .. 1000000]) [1 .. 1000000]
-    --         ,   bench "10M"     $ whnf (dopt [1 .. 10000000]) [1 .. 10000000]
-    --         -- ,   bench "100M"    $ whnf (dopt [1 .. 100000000]) [1 .. 100000000]
-    --         -- ,   bench "1G"      $ whnf (dopt [1 .. 1000000000]) [1 .. 1000000000]
-    --         ]
-    -- ,   bgroup "Dot Product Repa"
-    --         [   bench "1M"      $ whnf (doptR [1 .. 1000000]) [1 .. 1000000]
-    --         ,   bench "10M"     $ whnf (doptR [1 .. 10000000]) [1 .. 10000000]
-    --         -- ,   bench "100M"    $ whnf (doptR [1 .. 100000000]) [1 .. 100000000]
-    --         -- ,   bench "1G"      $ whnf (doptR [1 .. 1000000000]) [1 .. 1000000000]
-    --         ]
-    ]
---
--- a :: Graph
--- a = AdjList
---     [   [1, 4]
---     ,   [0, 2, 4]
---     ,   [1, 3]
---     ,   [2, 4, 5]
---     ,   [0, 1, 3]
---     ,   [3]
---     ]
---
+runBench = do
+    -- getStdRandom
+    defaultMain
+        [   --bgroup "Bron-Kerbosch"      [   bench "a" $ whnf bronKerbosch a
+            --                            ]
+        --     bgroup "Dot Product"
+        --         [   bench "1M"      $ whnf (dopt [1 .. 1000000]) [1 .. 1000000]
+        --         ,   bench "10M"     $ whnf (dopt [1 .. 10000000]) [1 .. 10000000]
+        --         -- ,   bench "100M"    $ whnf (dopt [1 .. 100000000]) [1 .. 100000000]
+        --         -- ,   bench "1G"      $ whnf (dopt [1 .. 1000000000]) [1 .. 1000000000]
+        --         ]
+        -- ,   bgroup "Dot Product Repa"
+        --         [   bench "1M"      $ whnf (doptR [1 .. 1000000]) [1 .. 1000000]
+        --         ,   bench "10M"     $ whnf (doptR [1 .. 10000000]) [1 .. 10000000]
+        --         -- ,   bench "100M"    $ whnf (doptR [1 .. 100000000]) [1 .. 100000000]
+        --         -- ,   bench "1G"      $ whnf (doptR [1 .. 1000000000]) [1 .. 1000000000]
+        --         ]
+        ]
+
+genGraph :: Int -> IO D.Graph
+genGraph n = do
+    degreeSeed <- newStdGen
+    vertexSeed <- newStdGen
+    let list = take n (takes degreeSeed vertexSeed)
+    return (foldl addVertex (D.Graph []) list)
+    where   takes s t = map (flip take (randoms t :: [Int])) (randomRs (1, 3) s :: [Int])
+
 -- dopt :: [Int] -> [Int] -> Int
 -- dopt a b = sum $ zipWith (*) a b
 --
