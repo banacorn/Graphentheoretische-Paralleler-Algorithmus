@@ -3,8 +3,7 @@ module Graph where
 import qualified Graph.DenseList as D
 import qualified Graph.SparseList as S
 import qualified Graph.SparseSet as SS
--- import qualified Graph.SparseRepaSet as SRS
--- import qualified Graph.Repa as R
+import qualified Graph.SparseSetRepa as SSR
 
 
 import Data.List (nub)

@@ -1,4 +1,4 @@
-module Graph.SparseSet (
+module Graph.SparseSetRepa (
         module Graph.Type.SparseSet
     ,   bronKerbosch
 ) where
