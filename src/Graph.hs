@@ -1,8 +1,9 @@
 module Graph where
 
-import qualified Graph.Dense as D
-import qualified Graph.Sparse as S
+import qualified Graph.DenseList as D
+import qualified Graph.SparseList as S
 import qualified Graph.SparseSet as SS
+-- import qualified Graph.SparseRepaSet as SRS
 -- import qualified Graph.Repa as R
 
 

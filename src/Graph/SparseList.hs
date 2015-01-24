@@ -1,16 +1,11 @@
-module Graph.Sparse where
+module Graph.SparseList (
+        module Graph.Type.SparseList
+    ,   bronKerbosch
+) where
+
+import Graph.Type.SparseList
 
 import Data.List (union, intersect, (\\), sort, nub)
-
---------------------------------------------------------------------------------
--- Data Type
-
-type Vertex = Int
-type Vertices = [Vertex]
-
-data Graph  = Graph [Vertices] deriving (Eq, Show)
-
-type Clique = Vertices
 
 --------------------------------------------------------------------------------
 -- Utilities

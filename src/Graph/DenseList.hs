@@ -1,18 +1,16 @@
-module Graph.Dense where
+module Graph.DenseList (
+        module Graph.Type.DenseList
+    ,   bronKerbosch
+    ,   toVertex
+    ,   insert
+) where
+
+import Graph.Type.DenseList
 
 import Prelude hiding (null)
 import Data.List (elemIndex, elemIndices, nub)
 import Data.Maybe (fromJust)
 
---------------------------------------------------------------------------------
--- Data Type
-
-type Vertex = Int
-type Vertices = [Bool]
-
-data Graph = Graph [Vertices] deriving (Eq, Show)
-
-type Clique = [Int]
 
 --------------------------------------------------------------------------------
 -- Graph related functions

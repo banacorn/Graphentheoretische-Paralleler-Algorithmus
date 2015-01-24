@@ -1,18 +1,12 @@
-module Graph.SparseSet where
+module Graph.SparseSet (
+        module Graph.Type.SparseSet
+    ,   bronKerbosch
+) where
+
+import Graph.Type.SparseSet
 
 import Data.Set
 import Prelude hiding (null, map)
--- import Data.List (union, intersect, (\\), sort, nub)
-
---------------------------------------------------------------------------------
--- Data Type
-
-type Vertex = Int
-type Vertices = Set Vertex
-
-data Graph  = Graph [Vertices] deriving (Eq, Show)
-
-type Clique = Vertices
 
 --------------------------------------------------------------------------------
 -- Utilities

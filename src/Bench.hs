@@ -1,13 +1,11 @@
 module Bench where
 
 import Graph
-import qualified Graph.Dense as D
-import qualified Graph.Sparse as S
+import qualified Graph.DenseList as D
+import qualified Graph.SparseList as S
 import qualified Graph.SparseSet as SS
 
-
 import Criterion.Main
-import qualified Data.Array.Repa as R
 import System.Random
 
 
