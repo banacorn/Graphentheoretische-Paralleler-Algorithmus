@@ -9,10 +9,6 @@ import Graph.Type.SparseSet
 import Data.Set hiding (map)
 import Prelude hiding (null)
 import qualified Data.Array.Repa as R
-import Data.Array.Repa.Eval (now)
-import Control.Monad.Identity
--- import qualified Data.Array.Repa.Eval as RE
-
 
 --------------------------------------------------------------------------------
 -- Utilities
@@ -35,6 +31,7 @@ go !g !r !p !x
     | null p && null x = size r          -- found a clique
     | null p           = 0                -- backtracks
     | otherwise        = R.foldAllS max 0 (R.map next vs')
+    --maximum . R.toList . computeP $ (R.map next vs')
 
     where   pivot   = findMin (p `union` x)
             vs      = p `difference` neighbor g pivot
@@ -45,3 +42,4 @@ go !g !r !p !x
 
             vs' = fromListUnboxed' (toList vs)
             fromListUnboxed' xs = R.fromListUnboxed (R.Z R.:. (length xs)) xs
+            --computeP = runIdentity . R.computeP :: R.Array R.D R.DIM1 Int -> R.Array R.U R.DIM1 Int

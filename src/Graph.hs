@@ -5,12 +5,20 @@ import qualified Graph.SparseList as S
 import qualified Graph.SparseSet as SS
 import qualified Graph.SparseSetRepa as SSR
 
+import qualified Data.Array.Repa as R
 
 import Data.List (nub)
 import Data.Set (fromList)
 
 --------------------------------------------------------------------------------
 -- conversions between different type of representation of Graphs
+
+graphSize :: SS.Graph -> Int
+graphSize (SS.Graph xs) = length xs
+bronKerboschLai g = sum $ zipWith (*) [0 .. graphSize g] [0 .. graphSize g]
+bronKerboschLaiR g = head $ R.sumAllP $ R.zipWith (*) list list
+    where   fromList x = R.fromListUnboxed (R.Z R.:. length x) x
+            list = fromList [0 .. graphSize g]
 
 toSparse :: D.Graph -> S.Graph
 toSparse (D.Graph xs) = S.Graph (map D.toVertex xs)
@@ -47,4 +55,6 @@ q = D.Graph
     ,   [True,  True,  False, True,  False, False]
     ,   [False, False, False, True,  False, False]
     ]
+
+w :: Int
 w = SSR.bronKerboschLai $ toSparseSet q
