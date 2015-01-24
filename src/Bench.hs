@@ -3,6 +3,7 @@ module Bench where
 import Graph
 import qualified Graph.Dense as D
 import qualified Graph.Sparse as S
+import qualified Graph.SparseSet as SS
 
 
 import Criterion.Main
@@ -12,12 +13,16 @@ import System.Random
 
 runBench :: IO ()
 runBench = do
-    d <- genGraph 100
+    d <- genGraph 1000
     let s = toSparse d
+    let ss = toSparseSet d
     defaultMain
-        [   bgroup "Bron-Kerbosch Dense"    [   bench "100" $ nf D.bronKerbosch d
+        [
+            -- bgroup "Bron-Kerbosch Dense"    [   bench "100" $ nf D.bronKerbosch d
+            --                                 ]
+            bgroup "Bron-Kerbosch Sparse"   [   bench "1K" $ nf S.bronKerbosch s
                                             ]
-        ,   bgroup "Bron-Kerbosch Sparse"   [   bench "100" $ nf S.bronKerbosch s
+        ,   bgroup "Bron-Kerbosch SparseSet"   [   bench "1K" $ nf SS.bronKerbosch ss
                                             ]
         --     bgroup "Dot Product"
         --         [   bench "1M"      $ whnf (dopt [1 .. 1000000]) [1 .. 1000000]

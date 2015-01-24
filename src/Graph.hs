@@ -2,10 +2,12 @@ module Graph where
 
 import qualified Graph.Dense as D
 import qualified Graph.Sparse as S
+import qualified Graph.SparseSet as SS
 -- import qualified Graph.Repa as R
 
 
 import Data.List (nub)
+import Data.Set (fromList)
 
 --------------------------------------------------------------------------------
 -- conversions between different type of representation of Graphs
@@ -16,6 +18,9 @@ toSparse (D.Graph xs) = S.Graph (map D.toVertex xs)
 fromSparse :: S.Graph -> D.Graph
 fromSparse (S.Graph xs) = D.Graph (map fromVertex xs)
     where   fromVertex = foldl D.insert (replicate (length xs) False)
+
+toSparseSet :: D.Graph -> SS.Graph
+toSparseSet (D.Graph xs) = SS.Graph (map (fromList . D.toVertex) xs)
 
 --------------------------------------------------------------------------------
 -- grow graph
