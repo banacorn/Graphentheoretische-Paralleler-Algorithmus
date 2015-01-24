@@ -1,6 +1,6 @@
 module Graph.SparseSet (
         module Graph.Type.SparseSet
-    ,   bronKerbosch
+    ,   bronKerboschLai
 ) where
 
 import Graph.Type.SparseSet
@@ -18,20 +18,20 @@ neighbor :: Graph -> Vertex -> Vertices
 neighbor (Graph list) v = list !! v
 
 --------------------------------------------------------------------------------
--- Bron-Kerbosch Algorithm
--- finds all maximal cliques in an undirected graph
-bronKerbosch :: Graph -> Set Clique
-bronKerbosch g = bronKerbosch2 g empty (vertices g) empty
+-- Bron-Kerbosch-Lai Algorithm
+-- finds the size of the biggest maximal cliques in an undirected graph
+bronKerboschLai :: Graph -> Int
+bronKerboschLai g = go g empty (vertices g) empty
 
 -- with pivoting, without vertex degeneracy ordering
-bronKerbosch2 :: Graph -> Vertices -> Vertices -> Vertices -> Set Clique
-bronKerbosch2 g r p x
-    | null p && null x = singleton r          -- found a clique
-    | null p           = empty                -- backtracks
-    | otherwise        = unions (map next (toList vs))
+go :: Graph -> Vertices -> Vertices -> Vertices -> Int
+go g r p x
+    | null p && null x = size r          -- found a clique
+    | null p           = 0                -- backtracks
+    | otherwise        = maximum (map next (toList vs))
     where   pivot   = findMin (p `union` x)
             vs      = p `difference` neighbor g pivot
-            next v  = bronKerbosch2 g
+            next v  = go g
                         (v `insert` r)
                         (p `intersection` neighbor g v)
                         (x `intersection` neighbor g v)

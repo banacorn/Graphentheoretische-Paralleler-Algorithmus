@@ -47,3 +47,4 @@ q = D.Graph
     ,   [True,  True,  False, True,  False, False]
     ,   [False, False, False, True,  False, False]
     ]
+w = SSR.bronKerboschLai $ toSparseSet q

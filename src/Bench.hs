@@ -4,6 +4,7 @@ import Graph
 import qualified Graph.DenseList as D
 import qualified Graph.SparseList as S
 import qualified Graph.SparseSet as SS
+import qualified Graph.SparseSetRepa as SSR
 
 import Criterion.Main
 import System.Random
@@ -12,15 +13,14 @@ import System.Random
 runBench :: IO ()
 runBench = do
     d <- genGraph 1000
-    let s = toSparse d
-    let ss = toSparseSet d
+    let s = toSparseSet d
     defaultMain
         [
             -- bgroup "Bron-Kerbosch Dense"    [   bench "100" $ nf D.bronKerbosch d
             --                                 ]
-            bgroup "Bron-Kerbosch Sparse"   [   bench "1K" $ nf S.bronKerbosch s
+            bgroup "Bron-Kerbosch SparseSet"   [   bench "1K" $ nf SS.bronKerboschLai s
                                             ]
-        ,   bgroup "Bron-Kerbosch SparseSet"   [   bench "1K" $ nf SS.bronKerbosch ss
+        ,   bgroup "Bron-Kerbosch SparseSet Repa"   [   bench "1K" $ nf SSR.bronKerboschLai s
                                             ]
         --     bgroup "Dot Product"
         --         [   bench "1M"      $ whnf (dopt [1 .. 1000000]) [1 .. 1000000]
