@@ -12,10 +12,13 @@ import System.Random
 
 runBench :: IO ()
 runBench = do
-    -- getStdRandom
+    d <- genGraph 100
+    let s = toSparse d
     defaultMain
-        [   --bgroup "Bron-Kerbosch"      [   bench "a" $ whnf bronKerbosch a
-            --                            ]
+        [   bgroup "Bron-Kerbosch Dense"    [   bench "100" $ nf D.bronKerbosch d
+                                            ]
+        ,   bgroup "Bron-Kerbosch Sparse"   [   bench "100" $ nf S.bronKerbosch s
+                                            ]
         --     bgroup "Dot Product"
         --         [   bench "1M"      $ whnf (dopt [1 .. 1000000]) [1 .. 1000000]
         --         ,   bench "10M"     $ whnf (dopt [1 .. 10000000]) [1 .. 10000000]
